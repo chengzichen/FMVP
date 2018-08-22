@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FMVP</string>
+    <string name="data_f">response : %s</string>
+
+</resources>
