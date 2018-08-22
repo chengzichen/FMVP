@@ -1,6 +1,7 @@
 # 目录
 - [前言](#前言)
 - [特点](#特点)
+- [快速使用](#快速使用)
 - [使用依赖](#使用依赖)
 - [代码结构](#代码结构)
 - [具体使用](#具体使用)
@@ -12,11 +13,17 @@
      欢迎使用Flyabbit全家桶
 
 
-  🔜 FMVP: 快速开发的 MVP 框架
+  🔜 FMVP: 快速开发的 MVP 框架,开箱即用
 
+### 最新版本
+
+模块|FMVP|FMVP 插件
+---|---|---
+最新版本|[ ![Download](https://api.bintray.com/packages/chengzichen/maven/mvp/images/download.svg) ](https://bintray.com/chengzichen/maven/mvp/_latestVersion) |![](https://img.shields.io/github/release/chengzichen/component.svg)
 
 
 # 特点:
+
 
 -  `degger2` ,`util`....每个Modle中提供了`XXDiHelper` 快速使用AOP依赖注入,一键注入你想要的
 -  `rxjava`,`retrofit`让网络请求线程切换赢在起跑线上
@@ -26,6 +33,75 @@
 - `room`,`MemoryCache`,`SPHelper`和` RxCache `提供了强大的网络请求和缓存功能
 - 使用`AccountManager`提供了登录用户资料的简单管理
 
+# 快速使用
+
+
+- 安装ide插件:
+	1. File->Setting->Plugins->按下图搜索[componentPlugin](https://github.com/chengzichen/component)(或者[下载](https://github.com/chengzichen/component/blob/master/component.jar))
+,安装完后重启Andriod Studio
+	2. 在对应的目录下 -> new -> FMVP-File 
+
+**注意**:考虑到mvp模板路径的正确性，对模板生成的路径有限制（只有在Moudle下的jav路径下才能生效），更好的引导大家使用
+
+- 初始化
+	
+	```
+	public class SampleApp extends BaseApplication {
+	
+	    @Override
+	    public void onCreate() {
+	        super.onCreate();
+	   		 }
+		}
+		
+	```
+	
+- 填写 M-V-P 代码 
+	
+- 使用 Dagger2注入对象
+
+ActivityComponent
+
+FragmentComponent
+
+ @Override
+    public void initInject(Bundle savedInstanceState) {
+        DiHelper.getActivityComponent(getActivityModule()).inject(this);
+    }
+	
+- 在 Fragment 或者 Activity 中使用
+
+``` 
+public class NetSampleActivity extends XDaggerActivity<NetTestPresenter> implements INetTestContract.IView<List<GankItemBean>> {
+
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_net_sample;
+    }
+
+    @Override
+    public void initEventAndData(Bundle savedInstanceState) {
+       mPresenter.getRandomGirl();//调用方法请求接口
+    }
+
+   
+    @Override
+    public void initInject(Bundle savedInstanceState) {
+        DiHelper.getActivityComponent(getActivityModule()).inject(this);
+    }
+
+    @Override
+    public void success(List<GankItemBean> data) {
+        //todo
+    }
+
+    @Override
+    public void failure(String code, String msg) {
+		//todo
+    }
+}
+```
 
 # 使用依赖:
 

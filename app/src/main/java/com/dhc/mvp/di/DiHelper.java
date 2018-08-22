@@ -11,9 +11,9 @@ import com.dhc.library.di.module.FragmentModule;
 import com.dhc.library.utils.AppContext;
 
 /**
- * @author:
+ * @author:   邓浩宸
  * @createDate :
- * @description :
+ * @description :  helper for inject
  */
 public class DiHelper {
 
