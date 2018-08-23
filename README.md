@@ -158,6 +158,7 @@
 	   	 }
 	}
 ```	
+
 - **使用 Dagger2注入对象**
 
 	在ActivityComponent或者FragmentComponent中(/di/component/)定义需要注入的对象和方法:
