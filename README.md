@@ -49,17 +49,17 @@
 
 - **初始化Appliction并在AndroidManifest中注册为启动类**
 	
-	```
-	public class SampleApp extends BaseApplication {
-	
+  ```
+    public class SampleApp extends BaseApplication {
+
 	    @Override
 	    public void onCreate() {
 	        super.onCreate();
-	        //todo
+	             //todo
 	   		 }
 		}
-		
-	``
+
+  ```
 
 
 - **填写 M-V-P 代码逻辑代码**
