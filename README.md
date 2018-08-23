@@ -157,7 +157,7 @@
                 }));
 	   	 }
 	}
-```	
+    ```
 
 - **使用 Dagger2注入对象**
 
@@ -332,7 +332,7 @@
 	
 		
 		```
-	public class SampleApp extends BaseApplication {
+	    public class SampleApp extends BaseApplication {
 	
 	    @Override
 	    public void onCreate() {
@@ -375,19 +375,21 @@
 	                    }
 	                })//okhttp 相关的配置处理.比如配置 https
 	                ;
+	     }
 	    }
-	}
-	```
+	    ```
+
 	- 配置单个请求重连次数和时长
-	 ```
+
+	    ```
 		//在IModel中使用compose()方法,默认重连三次每次等待时间3秒,有特殊情况可以重新设置
-	RxUtil. <T extends ApiResponse>rxSchedulerHelper(int count, final long delay)
-	```
+	    RxUtil. <T extends ApiResponse>rxSchedulerHelper(int count, final long delay)
+	    ```
 		
 - **Dagger2注入对象相关的配置**
 
 	```
-public class SampleApp extends BaseApplication {
+    public class SampleApp extends BaseApplication {
 
     @Override
     public void onCreate() {
@@ -403,7 +405,7 @@ public class SampleApp extends BaseApplication {
                 ;
    		 }
 	}
-```
+    ```
 
 
 ### 缓存技术
@@ -411,21 +413,21 @@ public class SampleApp extends BaseApplication {
 	
 - **LruCache**
 
-	```
-//获取 当前 Appliction 对象就可以使用 LruCache(内存缓存),提供了 CRUD 方法
+        ```
+        //获取 当前 Appliction 对象就可以使用 LruCache(内存缓存),提供了 CRUD 方法
 
-	ICache iCache=((BaseApplication)AppContext.get()).getAppComponent().memoryCache();
-	
-	iCache.put("key",object);//添加
-	
-	iCache.remove("key");//移除
-	
-	iCache.get("key")//获取
-	
-	iCache.contains("key");//是否包含
-	
-	iCache.clear();//清空
-	```	
+        ICache iCache=((BaseApplication)AppContext.get()).getAppComponent().memoryCache();
+
+        iCache.put("key",object);//添加
+
+        iCache.remove("key");//移除
+
+        iCache.get("key")//获取
+
+        iCache.contains("key");//是否包含
+
+        iCache.clear();//清空
+        ```
 
 - **SharedPreferences**
 
@@ -444,7 +446,7 @@ public class SampleApp extends BaseApplication {
 	- 添加注解
 	
 		```	
-	 dependencies {
+	     dependencies {
 			android.arch.persistence.room:compiler:1.1.0-alpha1
 		}
 		```	
@@ -479,7 +481,7 @@ public class SampleApp extends BaseApplication {
 	- 添加实体与表映射关系	
 		
 		```	
-	@Database(entities = {GankItemBean.class}, version = 1)//对应映射实体类,修改了字段必需升级版本号
+	    @Database(entities = {GankItemBean.class}, version = 1)//对应映射实体类,修改了字段必需升级版本号
 		public abstract class AppDatabase extends RoomDatabase {
 		
 		    public abstract GankDao gankDao();
@@ -543,7 +545,7 @@ public class SampleApp extends BaseApplication {
 		                }));
 		    }
 		}
-	```	
+        ```
 
 ### 数据处理
 - **ApiResponse**
