@@ -18,13 +18,13 @@ import javax.inject.Inject;
 
 public class DBHelper {
 
-    @Inject
     ICache iCache;
     public Context context;
 
-    public DBHelper(Context context) {
+    public DBHelper(Context context, ICache iCache) {
         //Map used to store db
         this.context = context;
+        this.iCache=iCache;
     }
 
     @SuppressWarnings("unchecked")

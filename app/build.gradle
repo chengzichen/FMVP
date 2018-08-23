@@ -14,7 +14,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [moduleName: project.getName()]
+                arguments = [moduleName: project.getName(),"room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
         versionCode 1
@@ -49,4 +49,5 @@ dependencies {
     implementation project(':library')
     annotationProcessor "com.google.dagger:dagger-compiler:2.13"
     annotationProcessor "com.alibaba:arouter-compiler:1.1.2.1"
+    annotationProcessor rootProject.ext.dependencies["room-compiler"]
 }

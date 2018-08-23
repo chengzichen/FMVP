@@ -11,7 +11,7 @@ import okhttp3.RequestBody;
 /**
  * 创建者     邓浩宸
  * 创建时间   2016/12/9 14:17
- * 描述	  TODO
+ * 描述	 文件上传
  */
 
 public class UploadUtil {

@@ -1,5 +1,11 @@
 package com.dhc.mvp.modle.bean;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+@Entity(tableName = "gankitem")
 public class GankItemBean {
 
     /**
@@ -13,10 +19,14 @@ public class GankItemBean {
      * used : true
      * who : 代码家
      */
-
+    @PrimaryKey
+    @ColumnInfo(name="id")
+    @NonNull
     private String _id;
+    @ColumnInfo(name="created_at")
     private String createdAt;
     private String desc;
+    @ColumnInfo(name="published_at")
     private String publishedAt;
     private String source;
     private String type;

@@ -127,7 +127,7 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
     //db
     api rootProject.ext.dependencies["room-runtime"]
-    annotationProcessor rootProject.ext.dependencies["room-compiler"]
+
     api(rootProject.ext.dependencies["room-rxjava2"], {
         exclude module: 'rxjava'
     })

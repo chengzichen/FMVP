@@ -5,6 +5,8 @@ import com.dhc.library.di.ActivityScope;
 import com.dhc.library.di.component.AppComponent;
 import com.dhc.library.di.module.ActivityModule;
 import com.dhc.mvp.net.NetSampleActivity;
+import com.dhc.mvp.net.RoomSampleActivity;
+import com.dhc.mvp.net.RxCacheSampleActivity;
 
 import dagger.Component;
 
@@ -19,4 +21,8 @@ public interface ActivityComponent {
 
     //TODO inject(IView)
     void  inject(NetSampleActivity netSampleActivity);
+
+    void  inject(RxCacheSampleActivity rxCacheSampleActivity);
+
+    void  inject(RoomSampleActivity roomSampleActivity);
 }

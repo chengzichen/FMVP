@@ -45,8 +45,8 @@ public class DataModule {
     }
     @Provides
     @Singleton
-    DBHelper provideDatabaseHelper(BaseApplication application) {
-        return new DBHelper(application);
+    DBHelper provideDatabaseHelper(BaseApplication application,ICache iCache) {
+        return new DBHelper(application,iCache);
     }
 
 

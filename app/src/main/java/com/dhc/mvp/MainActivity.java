@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.dhc.library.base.BaseActivity;
 import com.dhc.mvp.net.NetSampleActivity;
+import com.dhc.mvp.net.RoomSampleActivity;
+import com.dhc.mvp.net.RxCacheSampleActivity;
 
 /**
  * @creator： denghc(desoce)
@@ -22,7 +24,7 @@ import com.dhc.mvp.net.NetSampleActivity;
 public class MainActivity extends BaseActivity {
 
     private RecyclerView recyclerView;
-    private String[] menu = {"net Sample", "protobuf Sample"};
+    private String[] menu = {"net Sample","room Sample","rxcache Sample", "protobuf Sample"};
 
     @Override
     public int getLayoutId() {
@@ -58,6 +60,12 @@ public class MainActivity extends BaseActivity {
         switch (pos){
            case  0 :
                startActivity(new Intent(this, NetSampleActivity.class));
+            break;
+           case  1 :
+               startActivity(new Intent(this, RoomSampleActivity.class));
+            break;
+           case  2 :
+               startActivity(new Intent(this, RxCacheSampleActivity.class));
             break;
 
         }
