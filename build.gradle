@@ -29,7 +29,10 @@ allprojects {
         maven {
             url "https://plugins.gradle.org/m2/"
         }
-
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')//忽略文档注释错误
+            options.addStringOption('encoding', 'UTF-8')
+        }
     }
 }
 

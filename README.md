@@ -220,7 +220,7 @@
 
 	```
 	dependencies {
-	       api 'com.dhc.lib:mvp:1.0.6'
+	       api 'com.dhc.lib:mvp:1.0.7'
 	       annotationProcessor "com.google.dagger:dagger-compiler:2.13"//dagger2注解
    			annotationProcessor "com.alibaba:arouter-compiler:1.1.2.1"// arouter 注解
 	}
