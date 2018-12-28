@@ -5,9 +5,7 @@
     <application
         android:allowBackup="true"
         android:supportsRtl="true">
-        <meta-data
-            android:name="com.dhc.lib.imageload.glideloader.CustomCachingGlideModule"
-            android:value="GlideModule"/>
+
 
     </application>
 
