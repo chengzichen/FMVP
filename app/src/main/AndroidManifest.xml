@@ -39,6 +39,9 @@
         <activity
             android:name="com.dhc.mvp.net.RoomSampleActivity"
             android:theme="@style/ActivityTheme"></activity>
+        <activity
+            android:name="com.dhc.mvp.net.RxJavaSampleActivity"
+            android:theme="@style/ActivityTheme"></activity>
     </application>
 
 </manifest>

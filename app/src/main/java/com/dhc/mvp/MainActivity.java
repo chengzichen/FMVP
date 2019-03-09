@@ -15,6 +15,7 @@ import com.dhc.library.base.BaseActivity;
 import com.dhc.mvp.net.NetSampleActivity;
 import com.dhc.mvp.net.RoomSampleActivity;
 import com.dhc.mvp.net.RxCacheSampleActivity;
+import com.dhc.mvp.net.RxJavaSampleActivity;
 
 /**
  * @creator： denghc(desoce)
@@ -67,7 +68,9 @@ public class MainActivity extends BaseActivity {
            case  2 :
                startActivity(new Intent(this, RxCacheSampleActivity.class));
             break;
-
+            case  3 :
+                startActivity(new Intent(this, RxJavaSampleActivity.class));
+                break;
         }
 
     }
