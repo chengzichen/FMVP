@@ -22,7 +22,7 @@
 最新版本|[ ![Download](https://api.bintray.com/packages/chengzichen/maven/mvp/images/download.svg) ](https://bintray.com/chengzichen/maven/mvp/_latestVersion) |![](https://img.shields.io/github/release/chengzichen/component.svg)
 
 
-- 版本 1.1.x为已经迁移了AndroidX 1.1.0为最新)
+- 版本 1.1.x为已经迁移了AndroidX (1.1.0为最新)
 - 版本 1.0.x为之前的版本  (1.0.10为最新)
 
 # 特点:
