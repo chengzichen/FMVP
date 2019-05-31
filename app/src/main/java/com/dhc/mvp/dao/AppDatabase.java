@@ -1,7 +1,8 @@
 package com.dhc.mvp.dao;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.RoomDatabase;
+
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
 
 import com.dhc.mvp.modle.bean.GankItemBean;
 

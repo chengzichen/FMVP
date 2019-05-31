@@ -2,7 +2,8 @@ package com.dhc.library.framework;
 
 import android.content.Context;
 
-import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle3.LifecycleTransformer;
+
 
 /**
  * 创建者：邓浩宸

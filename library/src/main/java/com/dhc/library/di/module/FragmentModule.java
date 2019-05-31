@@ -1,7 +1,8 @@
 package com.dhc.library.di.module;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
+
+import androidx.fragment.app.Fragment;
 
 import com.dhc.library.di.FragmentScope;
 

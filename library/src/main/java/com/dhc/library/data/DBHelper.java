@@ -1,8 +1,9 @@
 package com.dhc.library.data;
 
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
 import com.dhc.library.data.cache.ICache;
 

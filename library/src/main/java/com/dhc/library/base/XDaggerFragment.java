@@ -2,14 +2,15 @@ package com.dhc.library.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 import com.dhc.library.di.module.FragmentModule;
 import com.dhc.library.framework.IBasePresenter;
 import com.dhc.library.framework.IBaseView;
 import com.dhc.library.framework.ISupportDagger;
-import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle3.LifecycleTransformer;
 
 import javax.inject.Inject;
 

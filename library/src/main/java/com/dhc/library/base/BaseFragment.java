@@ -4,21 +4,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.CheckResult;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.dhc.library.framework.ISupportBaseFragment;
-import com.trello.rxlifecycle2.LifecycleProvider;
-import com.trello.rxlifecycle2.LifecycleTransformer;
-import com.trello.rxlifecycle2.RxLifecycle;
-import com.trello.rxlifecycle2.android.FragmentEvent;
-import com.trello.rxlifecycle2.android.RxLifecycleAndroid;
+import com.trello.rxlifecycle3.LifecycleProvider;
+import com.trello.rxlifecycle3.LifecycleTransformer;
+import com.trello.rxlifecycle3.RxLifecycle;
+import com.trello.rxlifecycle3.android.FragmentEvent;
+import com.trello.rxlifecycle3.android.RxLifecycleAndroid;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
@@ -32,7 +33,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  * @updateTime:2018/7/30 12:02
  * @description: BaseFragment by no mvp
  */
-public abstract class BaseFragment extends SupportFragment implements LifecycleProvider<FragmentEvent> ,ISupportBaseFragment {
+public abstract class BaseFragment extends SupportFragment implements LifecycleProvider<FragmentEvent>,ISupportBaseFragment {
 
     private static final Handler handler = new Handler();
 

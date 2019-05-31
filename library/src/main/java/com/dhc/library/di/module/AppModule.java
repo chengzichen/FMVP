@@ -1,7 +1,8 @@
 package com.dhc.library.di.module;
 
 
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import com.dhc.library.base.BaseApplication;
 

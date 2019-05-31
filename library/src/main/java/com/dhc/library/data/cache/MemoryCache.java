@@ -1,7 +1,8 @@
 package com.dhc.library.data.cache;
 
-import android.support.v4.util.LruCache;
 import android.text.TextUtils;
+
+import androidx.collection.LruCache;
 
 /**
  * Created by 邓浩宸 on 2016/11/28.
