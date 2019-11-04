@@ -19,7 +19,7 @@ public class DiHelper {
 
         public static ActivityComponent getActivityComponent(ActivityModule activityModule) {
             return DaggerActivityComponent.builder()
-                    .appComponent(((BaseApplication) AppContext.get()).getAppComponent())
+                    .appComponent(((BaseApplication) AppContext.INSTANCE.get()).getAppComponent())
                     .activityModule(activityModule)
                     .build();
         }
@@ -27,7 +27,7 @@ public class DiHelper {
 
     public static FragmentComponent getFragmentComponent(FragmentModule fragmentModule){
             return DaggerFragmentComponent.builder()
-                    .appComponent(((BaseApplication)AppContext.get()).getAppComponent())
+                    .appComponent(((BaseApplication) AppContext.INSTANCE.get()).getAppComponent())
                     .fragmentModule(fragmentModule)
                     .build();
         }

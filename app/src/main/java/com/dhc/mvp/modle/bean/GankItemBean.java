@@ -6,8 +6,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.dhc.library.base.BaseBean;
+
 @Entity(tableName = "gankitem")
-public class GankItemBean {
+public class GankItemBean  extends BaseBean {
 
     /**
      * _id : 599b7cf5421aa901c1c0a867

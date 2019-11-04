@@ -23,4 +23,6 @@ public interface Api {
     @GET("random/data/福利/{num}")
     Flowable<SampleApiResponse<List<GankItemBean>>> getRandomGirl(@Path("num") int num);
 
+
+
 }

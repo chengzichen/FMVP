@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
 
@@ -13,7 +16,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName(),"room.schemaLocation": "$projectDir/schemas".toString()]
+                arguments = [AROUTER_MODULE_NAME: project.getName(), "room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
         versionCode 1
@@ -55,9 +58,9 @@ dependencies {
 
     implementation project(':library')
     //dagger2的apt注解
-    annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
+    kapt rootProject.ext.dependencies["dagger-compiler"]
     //阿里的Arouter的注解
-    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+    kapt rootProject.ext.dependencies["arouter-compiler"]
     //room
-    annotationProcessor rootProject.ext.dependencies["room-compiler"]
+    kapt rootProject.ext.dependencies["room-compiler"]
 }

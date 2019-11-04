@@ -2,7 +2,6 @@ package com.fanyu.library;
 
 import org.junit.Test;
 
-import static com.dhc.library.utils.ArithmeticUtil.randomCommon;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -20,10 +19,6 @@ public class ExampleUnitTest {
 
     @Test
     public void randomTest() {
-        int[] ints = randomCommon(0, 9, 1);
-        for (int i = 0; i < ints.length; i++) {
-            System.out.print(ints[i]);
-        }
     }
 
 }
