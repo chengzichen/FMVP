@@ -65,6 +65,7 @@ abstract class BaseFragment : SupportFragment(), LifecycleProvider<FragmentEvent
     override fun onAttach(context: Context) {
         mContext = context
         super.onAttach(context)
+        lifecycleSubject.onNext(FragmentEvent.ATTACH)
     }
 
 
@@ -211,10 +212,6 @@ abstract class BaseFragment : SupportFragment(), LifecycleProvider<FragmentEvent
         return RxLifecycleAndroid.bindFragment(lifecycleSubject)
     }
 
-    override fun onAttach(activity: android.app.Activity?) {
-        super.onAttach(activity)
-        lifecycleSubject.onNext(FragmentEvent.ATTACH)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
