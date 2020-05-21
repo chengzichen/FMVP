@@ -150,7 +150,7 @@ publish {
     userOrg = 'chengzichen'//bintray.com用户名
     groupId = 'com.dhc.lib'//jcenter上的路径
     artifactId = 'mvp'//项目名称
-    publishVersion = '2.1.5'//版本号
+    publishVersion = '2.1.6'//版本号
     desc = 'Oh hi, this is component for degger2 .rxjava, room , mvp...., show android-mvp'
     website = 'https://github.com/chengzichen/Flyabbit'
 }
