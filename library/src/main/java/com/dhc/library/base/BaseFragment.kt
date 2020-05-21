@@ -62,7 +62,7 @@ abstract class BaseFragment : SupportFragment(), LifecycleProvider<FragmentEvent
     /**
      * The activity is onAttach to the Fragment
      */
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         mContext = context
         super.onAttach(context)
     }
