@@ -35,6 +35,7 @@ abstract class BaseActivity : SupportActivity(), LifecycleProvider<ActivityEvent
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleSubject.onNext(ActivityEvent.CREATE)
+        beforeInit(savedInstanceState)
         if (layoutId > 0) {
             setContentView(layoutId)
         }
@@ -67,6 +68,7 @@ abstract class BaseActivity : SupportActivity(), LifecycleProvider<ActivityEvent
         reload(false)
     }
 
+
     /**
      * Reload this Activity
      *
@@ -94,6 +96,10 @@ abstract class BaseActivity : SupportActivity(), LifecycleProvider<ActivityEvent
         super.onBackPressedSupport()
     }
 
+
+   open fun beforeInit(savedInstanceState: Bundle?) {
+
+    }
 
     /**------------------------             Rxlife start               ------------------------ */
 

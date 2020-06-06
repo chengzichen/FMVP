@@ -69,7 +69,7 @@ class HttpHelper(var context: Context, private val iCache: ICache)//Map used to 
     }
 
     override fun <S> createApi(serviceClass: Class<S>): S {
-        return createApi(serviceClass, getOkHttpClient())
+        return createApi(serviceClass, getClient())
     }
 
 

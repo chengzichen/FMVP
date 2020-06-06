@@ -13,7 +13,7 @@ import com.dhc.library.utils.ApplicationLike
  * @updateTime: 2018/7/30 12:01
  * @description: This Application can only be used in the child moudle for moudle isolation
  */
-class BaseChildApplication : BaseApplication(), ApplicationLike {
+open class BaseChildApplication : BaseApplication(), ApplicationLike {
 
     override fun onCreate() {
         super.onCreate()

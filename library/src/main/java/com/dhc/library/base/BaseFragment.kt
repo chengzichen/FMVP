@@ -1,6 +1,5 @@
 package com.dhc.library.base
 
-import android.app.Activity
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
@@ -69,6 +68,9 @@ abstract class BaseFragment : SupportFragment(), LifecycleProvider<FragmentEvent
     }
 
 
+   open fun beforeInit(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) {
+
+    }
     /**
      * get Handler for thread scheduling
      *
@@ -93,6 +95,7 @@ abstract class BaseFragment : SupportFragment(), LifecycleProvider<FragmentEvent
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         lifecycleSubject.onNext(FragmentEvent.CREATE_VIEW)
+        beforeInit(inflater, container, savedInstanceState)
         val layoutId = layoutId
         if (layoutId > 0)
             mRootView = inflater.inflate(layoutId, null)
