@@ -35,11 +35,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 class HttpHelper(var context: Context, private val iCache: ICache)//Map used to store RetrofitService
     : IDataHelper {
 
-    private  var netConfig = IDataHelper.NetConfig()
+    private var netConfig = IDataHelper.NetConfig()
 
-    private  var okHttpClient: OkHttpClient? = null
+    private var okHttpClient: OkHttpClient? = null
 
-    private  var retrofit: Retrofit ? = null
+    private var retrofit: Retrofit? = null
 
     private var gson: Gson? = null
 
@@ -106,8 +106,14 @@ class HttpHelper(var context: Context, private val iCache: ICache)//Map used to 
     }
 
     fun getGson(): Gson {
-        if (gson == null)
-            gson = GsonBuilder().create()//Gson解析
+        if (gson == null){
+            var builder = GsonBuilder();
+            //设置https相关
+            if (netConfig.gsonCall != null) {
+                netConfig.gsonCall!!.configGson(builder)
+            }
+            gson = builder.create()//Gson解析
+        }
         return this.gson!!
     }
 

@@ -1,5 +1,6 @@
 package com.dhc.library.data
 
+import com.google.gson.GsonBuilder
 import okhttp3.CookieJar
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -30,11 +31,17 @@ interface IDataHelper {
 
     }
 
+    interface GsonCall {
+
+        fun configGson(builder: GsonBuilder)
+    }
+
     open class NetConfig {
         var mInterceptors: Array<Interceptor>? = null
         var factories: Array<Converter.Factory>? = null
         var mCookieJar: CookieJar? = null
         var call: RequestCall? = null
+        var gsonCall: GsonCall? = null
         var mHttpsCall: HttpsCall? = null
         var connectTimeoutMills: Long = 0
         var readTimeoutMills: Long = 0
@@ -100,6 +107,15 @@ interface IDataHelper {
          */
         fun configCall(call: RequestCall): NetConfig {
             this.call = call
+            return this
+        }
+        /**
+         *
+         * @param gsonCall
+         * @return
+         */
+        fun gsonCall(call: GsonCall): NetConfig {
+            this.gsonCall = call
             return this
         }
 
