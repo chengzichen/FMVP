@@ -133,7 +133,7 @@ abstract class BaseFragment : SupportFragment(), LifecycleProvider<FragmentEvent
      * useLazy
      * @return
      */
-    fun useLazy(): Boolean {
+    open fun useLazy(): Boolean {
         return true
     }
 
