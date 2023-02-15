@@ -49,7 +49,7 @@ ext {
             VRxCache               : "1.8.3-2.x",
             VJolyglotGson          : "0.0.4",
             //di
-            VDagger                : "2.23.1",
+            VDagger                : "2.45",
             VButterknife           : "8.4.0",
             VAroutercompiler       : "1.2.2",
             VArouterapi            : "1.5.0",
@@ -159,7 +159,7 @@ ext {
             "RxCache"                      : "com.github.VictorAlbertos.RxCache:runtime:${android["VRxCache"]}",
             "Jolyglot-Gson"                : "com.github.VictorAlbertos.Jolyglot:gson:${android["VJolyglotGson"]}",
             //di
-            "javax.annotation"             : 'javax.annotation:jsr250-api:1.0',
+            "javax.annotation"             : 'com.github.pengrad:jdk9-deps:1.0',
             "dagger"                       : "com.google.dagger:dagger:${android["VDagger"]}",
             "dagger-compiler"              : "com.google.dagger:dagger-compiler:${android["VDagger"]}",
             "butterknife"                  : "com.jakewharton:butterknife:${android["VButterknife"]}",

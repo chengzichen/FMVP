@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'//添加
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -130,7 +129,7 @@ dependencies {
     //di
     api rootProject.ext.dependencies["dagger"]
     api rootProject.ext.dependencies["arouter-api"]
-    compileOnly rootProject.ext.dependencies["javax.annotation"]
+    api rootProject.ext.dependencies["javax.annotation"]
     //dagger2的apt注解
     kapt rootProject.ext.dependencies["dagger-compiler"]
 
@@ -143,14 +142,7 @@ dependencies {
         exclude module: 'rxjava'
     })
     api rootProject.ext.dependencies["room-testing"]
+
 }
 
 
-publish {
-    userOrg = 'chengzichen'//bintray.com用户名
-    groupId = 'com.dhc.lib'//jcenter上的路径
-    artifactId = 'mvp'//项目名称
-    publishVersion = '2.1.10'//版本号
-    desc = 'Oh hi, this is component for degger2 .rxjava, room , mvp...., show android-mvp'
-    website = 'https://github.com/chengzichen/Flyabbit'
-}
