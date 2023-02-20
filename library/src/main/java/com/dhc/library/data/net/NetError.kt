@@ -6,45 +6,24 @@ package com.dhc.library.data.net
  * @description:  network anomaly
  */
 class NetError : Exception {
-    var exception: Throwable? = null
-    var type = NoConnectError
-        private set
 
-    constructor(exception: Throwable, type: String) {
-        this.exception = exception
-        this.type = type
+    var errorMsg: String //错误消息
+    var errCode: Int = 0 //错误码
+    var errorLog: String? //错误日志
+    var throwable: Throwable? = null
+
+    constructor(errCode: Int, error: String?, errorLog: String? = "", throwable: Throwable? = null) : super(error) {
+        this.errorMsg = error ?: "请求失败，请稍后再试"
+        this.errCode = errCode
+        this.errorLog = errorLog ?: this.errorMsg
+        this.throwable = throwable
     }
 
-    constructor(detailMessage: String, type: String) : super(detailMessage) {
-        this.type = type
+    constructor(error: Error, e: Throwable?) {
+        errCode = error.getKey()
+        errorMsg = error.getValue()
+        errorLog = e?.message
+        throwable = e
     }
 
-
-    override val message: String?
-        get() {
-            if (exception != null) {
-                return if (exception!!.message == null) {
-                    exception!!.toString()
-                } else {
-                    exception!!.message
-                }
-            }
-            return if (super.message != null) {
-                super.message
-            } else {
-                "未知错误"
-            }
-        }
-
-    companion object {
-
-        val ParseError = "0"   //数据解析异常
-        val NoConnectError = "-1"   //无连接异常
-        val AuthError = "-2"   //用户验证异常
-        val NoDataError = "-3"   //无数据返回异常
-        val BusinessError = "-4"   //业务异常
-        val SocketError = "-6"   //连接超时异常
-        val OtherError = "-5"   //其他异常
-        val NetError = "-7"   //请求错误
-    }
 }

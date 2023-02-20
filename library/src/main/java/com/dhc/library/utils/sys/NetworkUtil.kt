@@ -14,6 +14,7 @@ import android.net.wifi.WifiManager
 import android.os.Build
 import android.telephony.TelephonyManager
 import android.text.TextUtils
+import com.kunminx.architecture.ui.callback.ProtectedUnPeekLiveData
 
 
 import java.util.regex.Matcher
@@ -874,7 +875,7 @@ object NetworkUtil {
 
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
                 ?: return false
-        return connectivityManager.activeNetworkInfo.type == ConnectivityManager.TYPE_WIFI
+        return connectivityManager?.activeNetworkInfo?.type == ConnectivityManager.TYPE_WIFI
     }
 
     /**

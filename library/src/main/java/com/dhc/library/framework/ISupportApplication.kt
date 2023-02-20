@@ -2,8 +2,6 @@ package com.dhc.library.framework
 
 
 import com.dhc.library.data.IDataHelper
-import com.dhc.library.di.component.AppComponent
-import com.dhc.library.di.component.DaggerAppComponent
 
 /**
  * @creator：denghc(desoce)
@@ -14,6 +12,4 @@ interface ISupportApplication {
 
 
     fun getNetConfig(): IDataHelper.NetConfig?
-    fun getAppComponentBuilder(): DaggerAppComponent.Builder?
-    fun getAppComponent(): AppComponent?
 }

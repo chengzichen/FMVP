@@ -6,10 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 import com.dhc.library.data.cache.ICache
+import com.dhc.library.data.cache.MemoryCache
+import com.dhc.library.utils.AppContext
 
 import java.util.HashMap
 
-import javax.inject.Inject
 
 /**
  * 创建者     邓浩宸
@@ -19,6 +20,12 @@ import javax.inject.Inject
 
 class DBHelper(var context: Context, internal var iCache: ICache)//Map used to store db
 {
+
+    companion object {
+        val INSTANCE: DBHelper by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+            DBHelper(AppContext.get(), MemoryCache.instance)
+        }
+    }
 
     fun <S : RoomDatabase> getApi(serviceClass: Class<S>, dbName: String): S {
         if (iCache.contains(dbName)) {

@@ -2,17 +2,17 @@ package com.dhc.library.framework
 
 import android.app.Activity
 import android.app.Application
+import android.content.IntentFilter
 import android.content.res.Configuration
+import android.net.ConnectivityManager
 import android.os.Bundle
+import androidx.lifecycle.ProcessLifecycleOwner
 
 import com.alibaba.android.arouter.launcher.ARouter
-import com.dhc.library.base.BaseApplication
+import com.dhc.library.data.HttpHelper
 import com.dhc.library.data.IDataHelper
-import com.dhc.library.di.component.AppComponent
-import com.dhc.library.di.component.DaggerAppComponent
-import com.dhc.library.di.component.DaggerAppComponent.*
-import com.dhc.library.di.module.AppModule
-import com.dhc.library.di.module.DataModule
+import com.dhc.library.data.net.manager.NetworkStateReceive
+import com.dhc.library.ext.KtxAppLifeObserver
 import com.dhc.library.utils.AppContext
 import com.dhc.library.utils.AppManager
 import com.dhc.library.utils.AppUtil
@@ -26,9 +26,8 @@ import com.dhc.library.utils.sys.ScreenUtil
  */
 interface XAppDelegate {
 
-    fun getAppComponent(): AppComponent
 
-    fun getAppComponentBuilder(): DaggerAppComponent.Builder
+
 
     fun netConfig(netConfig: IDataHelper.NetConfig?): XAppDelegate
 
@@ -43,25 +42,12 @@ interface XAppDelegate {
     fun onTrimMemory(level: Int)
 
 
-    class DefaultAppDelegate( val application: Application) : XAppDelegate {
+    class DefaultAppDelegate(val application: Application) : XAppDelegate {
 
-        private var builder: DaggerAppComponent.Builder? = null
+        private lateinit var mNetworkStateReceive: NetworkStateReceive
 
         private var mNetConfig: IDataHelper.NetConfig? = null
 
-
-        override fun getAppComponentBuilder(): DaggerAppComponent.Builder {
-             builder = DaggerAppComponent.builder()
-                    .dataModule(DataModule(mNetConfig))
-                    .appModule(AppModule(this.application as BaseApplication))
-            return builder!!
-        }
-
-        override fun getAppComponent(): AppComponent {
-            if (builder == null)
-                builder = getAppComponentBuilder()
-            return builder!!.build()
-        }
 
         override fun netConfig(netConfig: IDataHelper.NetConfig?): DefaultAppDelegate {
             mNetConfig = netConfig
@@ -77,7 +63,17 @@ interface XAppDelegate {
                 ARouter.openDebug()   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
             }
             ARouter.init(application) // 尽可能早，推荐在Application中初始化
+            HttpHelper.INSTANCE.initConfig(mNetConfig)
+            //
             application.registerActivityLifecycleCallbacks(SwitchBackgroundCallbacks())
+            //监听网络信号
+            mNetworkStateReceive = NetworkStateReceive()
+            application.registerReceiver(
+                mNetworkStateReceive,
+                IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+            )
+            //监听是否在后台运行
+            ProcessLifecycleOwner.get().lifecycle.addObserver(KtxAppLifeObserver)
         }
 
         override fun onTerminate() {
@@ -121,9 +117,9 @@ interface XAppDelegate {
 
         }
 
-        override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle?) {
-
+        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
         }
+
 
         override fun onActivityDestroyed(activity: Activity) {
             AppManager.instance.removeActivity(activity)

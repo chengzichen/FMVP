@@ -4,13 +4,21 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 
-import com.dhc.library.base.XDaggerFragment
+import com.dhc.library.base.activity.BaseVmDbActivity
+import com.dhc.library.base.fragment.BaseVmDbFragment
+import com.dhc.library.base.viewmodel.BaseViewModel
+import com.dhc.library.base.viewmodel.parseState
 import com.dhc.mvp.R
+import com.dhc.mvp.databinding.FragmentNetSampleBinding
 import com.dhc.mvp.di.DiHelper
 import com.dhc.mvp.modle.bean.GankItemBean
 import com.dhc.mvp.presenter.NetTestPresenter
-import com.dhc.mvp.presenter.contract.INetTestContract
+import com.dhc.mvp.viewmodel.RequestProjectViewModel
+import kotlinx.android.synthetic.main.activity_net_sample.*
 
 import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
@@ -21,39 +29,36 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
  * @updateTime：2018/8/14 下午2:56
  * @description：TODO 请描述该类职责
  */
-class NetSampleFragment : XDaggerFragment<NetTestPresenter, INetTestContract.IView>(), INetTestContract.IView {
+class NetSampleFragment : BaseVmDbFragment<BaseViewModel, FragmentNetSampleBinding>() {
 
 
-    private var title: TextView? = null
-    private var content: TextView? = null
-
-
-    override val layoutId: Int
-        get() = R.layout.fragment_net_sample
+    private val viewModel: RequestProjectViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    override fun initEventAndData(savedInstanceState: Bundle?) {
-        title = `$`(R.id.tv_title)
-        title!!.text = "Url : http://gank.io/api/random/data/福利/1"
-        content = `$`(R.id.tv_content)
-        mPresenter!!.getRandomGirl()
-    }
-
-    override fun initInject(savedInstanceState: Bundle?) {
-        DiHelper.getFragmentComponent(fragmentModule).inject(this)
-    }
 
     override fun onCreateFragmentAnimator(): FragmentAnimator {
         return DefaultVerticalAnimator()
     }
 
-    override fun success(data: List<GankItemBean>?) {
-        content!!.text = getString(R.string.data_f, data?.get(0).toString())
-    }
-    override fun failure(code: String, msg: String?) {
+    override fun createObserver() {
+        viewModel.run {
+            randomGirlData.observe(viewLifecycleOwner, Observer {
+                parseState(it,
+                    onSuccess = { data ->
+                        tv_content!!.text = getString(R.string.data_f, data!![0].toString())
+                    },
+                    onError = {
 
+                    })
+            })
+        }
+    }
+
+    override fun initView(savedInstanceState: Bundle?) {
+        tv_title!!.text = "Url : http://gank.io/api/random/data/福利/1"
+        viewModel!!.getRandomGirl()
     }
 }

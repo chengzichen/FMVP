@@ -47,9 +47,10 @@ android {
     lintOptions {
         abortOnError false
     }
-
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        //这2个为非必选，想用哪个就保留那个 用的话一定要加上项目中的 ViewBinding & DataBinding 混淆规则
+        dataBinding = true
+        viewBinding = true
     }
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
@@ -62,7 +63,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-
+    implementation rootProject.ext.dependencies["annotations"]
     api(rootProject.ext.dependencies["appcompat-v7"],{
         exclude module: 'support-annotations'
         exclude module: 'support-v4'
@@ -77,20 +78,39 @@ dependencies {
     api (rootProject.ext.dependencies["fragmentation"], {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    //kotlin
+    api"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'androidx.core:core-ktx:1.3.2'
+
+    //lifecycle
+    api 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0'
+    api 'androidx.lifecycle:lifecycle-common-java8:2.2.0'
+    api 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    // viewModel
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0"
+    api "androidx.fragment:fragment-ktx:1.3.1"
+    // liveData
+    api "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+    api 'com.github.KunMinX:UnPeek-LiveData:7.8.0'
+    api 'com.github.KunMinX.Strict-DataBinding:binding_state:5.6.0'
+    //navigation
+    api 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+
     //rx
-    api rootProject.ext.dependencies["rxjava"]
-    api(rootProject.ext.dependencies["rxandroid"], {
-        exclude module: 'rxjava'
-    })
-    api(rootProject.ext.dependencies["rxlifecycle"], {
-        exclude module: 'rxjava'
-    })
-    api(rootProject.ext.dependencies["rxlifecycle-android"],{
-        exclude module: 'rxjava'
-    })
-    api(rootProject.ext.dependencies["rxlifecycle-components"],{
-        exclude module: 'rxjava'
-    })
+//    api rootProject.ext.dependencies["rxjava"]
+//    api(rootProject.ext.dependencies["rxandroid"], {
+//        exclude module: 'rxjava'
+//    })
+//    api(rootProject.ext.dependencies["rxlifecycle"], {
+//        exclude module: 'rxjava'
+//    })
+//    api(rootProject.ext.dependencies["rxlifecycle-android"],{
+//        exclude module: 'rxjava'
+//    })
+//    api(rootProject.ext.dependencies["rxlifecycle-components"],{
+//        exclude module: 'rxjava'
+//    })
     //network
     api rootProject.ext.dependencies["gson"]
 //    api rootProject.ext.dependencies["protobuf-lite"]
@@ -100,9 +120,9 @@ dependencies {
     api(rootProject.ext.dependencies["retrofit-converter-gson"], {
         exclude module: 'gson'
     })
-    api(rootProject.ext.dependencies["retrofit-adapter-rxjava"], {
-        exclude module: 'rxjava'
-    })
+//    api(rootProject.ext.dependencies["retrofit-adapter-rxjava"], {
+//        exclude module: 'rxjava'
+//    })
 //    api(rootProject.ext.dependencies["retrofit-converter-protobuf"], {
 //        exclude group: 'com.google.protobuf'
 //    }
@@ -116,10 +136,10 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude module: 'rxjava'
     })
-    api rootProject.ext.dependencies["Jolyglot-Gson"]
-    api(rootProject.ext.dependencies["RxCache"], {
-        exclude module: 'rxjava'
-    })
+//    api rootProject.ext.dependencies["Jolyglot-Gson"]
+//    api(rootProject.ext.dependencies["RxCache"], {
+//        exclude module: 'rxjava'
+//    })
 
     //canary
 //    debugApi rootProject.ext.dependencies["blockcanary-debug"]
@@ -127,21 +147,22 @@ dependencies {
     //Cookie
     api rootProject.ext.dependencies["PersistentCookieJar"]
     //di
-    api rootProject.ext.dependencies["dagger"]
+//    api rootProject.ext.dependencies["dagger"]
     api rootProject.ext.dependencies["arouter-api"]
     api rootProject.ext.dependencies["javax.annotation"]
-    //dagger2的apt注解
-    kapt rootProject.ext.dependencies["dagger-compiler"]
+//    //dagger2的apt注解
+//    kapt rootProject.ext.dependencies["dagger-compiler"]
 
     //阿里的Arouter的注解
     kapt rootProject.ext.dependencies["arouter-compiler"]
     //db
     api rootProject.ext.dependencies["room-runtime"]
 
-    api(rootProject.ext.dependencies["room-rxjava2"], {
-        exclude module: 'rxjava'
-    })
     api rootProject.ext.dependencies["room-testing"]
+
+
+    //本地数据保存
+    api 'com.tencent:mmkv:1.2.14'
 
 }
 

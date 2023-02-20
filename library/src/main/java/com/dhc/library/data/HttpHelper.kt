@@ -4,9 +4,11 @@ import android.content.Context
 import android.text.TextUtils
 
 import com.dhc.library.data.cache.ICache
+import com.dhc.library.data.cache.MemoryCache
 import com.dhc.library.data.net.CacheInterceptor
 import com.dhc.library.data.net.CallInterceptor
 import com.dhc.library.data.net.StringConverterFactory
+import com.dhc.library.utils.AppContext
 import com.dhc.library.utils.AppUtil
 import com.dhc.library.utils.file.FileUtil
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
@@ -23,7 +25,6 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 
@@ -32,9 +33,16 @@ import retrofit2.converter.gson.GsonConverterFactory
  * 时间 ：2016/11/15 15:59
  * 描述 ：网络请求的辅助类
  */
+
+
 class HttpHelper(var context: Context, private val iCache: ICache)//Map used to store RetrofitService
     : IDataHelper {
 
+    companion object {
+        val INSTANCE: HttpHelper by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+            HttpHelper(AppContext.get(), MemoryCache.instance)
+        }
+    }
     private var netConfig = IDataHelper.NetConfig()
 
     private var okHttpClient: OkHttpClient? = null
@@ -43,8 +51,10 @@ class HttpHelper(var context: Context, private val iCache: ICache)//Map used to 
 
     private var gson: Gson? = null
 
-    override fun initConfig(netConfig: IDataHelper.NetConfig) {
-        this.netConfig = netConfig
+    override fun initConfig(netConfig: IDataHelper.NetConfig?) {
+        netConfig?.let {
+            this.netConfig = netConfig
+        }
     }
 
 
@@ -137,9 +147,6 @@ class HttpHelper(var context: Context, private val iCache: ICache)//Map used to 
             for (i in netConfig.factories!!.indices) {
                 builder.addConverterFactory(netConfig.factories!![i])
             }
-        }
-        if (netConfig.isUseRx) {
-            builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create())//call 适配器
         }
         retrofit = builder.build()
         return retrofit as Retrofit

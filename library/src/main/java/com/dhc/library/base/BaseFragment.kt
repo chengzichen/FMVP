@@ -10,17 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 
-import androidx.annotation.CheckResult
-
 import com.dhc.library.framework.ISupportBaseFragment
-import com.trello.rxlifecycle3.LifecycleProvider
-import com.trello.rxlifecycle3.LifecycleTransformer
-import com.trello.rxlifecycle3.RxLifecycle
-import com.trello.rxlifecycle3.android.FragmentEvent
-import com.trello.rxlifecycle3.android.RxLifecycleAndroid
 
-import io.reactivex.Observable
-import io.reactivex.subjects.BehaviorSubject
 import me.yokeyword.fragmentation.SupportFragment
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
@@ -31,7 +22,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
  * @updateTime:2018/7/30 12:02
  * @description: BaseFragment by no mvp
  */
-abstract class BaseFragment : SupportFragment(), LifecycleProvider<FragmentEvent>, ISupportBaseFragment {
+abstract class BaseFragment : SupportFragment(),  ISupportBaseFragment {
 
     protected var mRootView: View? = null
 
@@ -45,17 +36,13 @@ abstract class BaseFragment : SupportFragment(), LifecycleProvider<FragmentEvent
             if (_mActivity == null || view == null)
                 return false
             val imm = _mActivity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            if (imm.hideSoftInputFromWindow(view!!.windowToken, 0)) {
+            if (imm.hideSoftInputFromWindow(requireView().windowToken, 0)) {
                 imm.showSoftInput(view, 0)
                 return true
             } else {
                 return false
             }
         }
-
-    /**------------------------             Rxlife   start            ------------------------ */
-
-    private val lifecycleSubject = BehaviorSubject.create<FragmentEvent>()
 
 
     /**
@@ -64,7 +51,6 @@ abstract class BaseFragment : SupportFragment(), LifecycleProvider<FragmentEvent
     override fun onAttach(context: Context) {
         mContext = context
         super.onAttach(context)
-        lifecycleSubject.onNext(FragmentEvent.ATTACH)
     }
 
 
@@ -94,8 +80,15 @@ abstract class BaseFragment : SupportFragment(), LifecycleProvider<FragmentEvent
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        lifecycleSubject.onNext(FragmentEvent.CREATE_VIEW)
         beforeInit(inflater, container, savedInstanceState)
+        return getRootView(inflater,container,savedInstanceState)
+    }
+
+    open fun getRootView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val layoutId = layoutId
         if (layoutId > 0)
             mRootView = inflater.inflate(layoutId, null)
@@ -200,73 +193,15 @@ abstract class BaseFragment : SupportFragment(), LifecycleProvider<FragmentEvent
         // todo,When the Fragment is invisible to the use
     }
 
-    @CheckResult
-    override fun lifecycle(): Observable<FragmentEvent> {
-        return lifecycleSubject.hide()
-    }
-
-    @CheckResult
-    override fun <T> bindUntilEvent(event: FragmentEvent): LifecycleTransformer<T> {
-        return RxLifecycle.bindUntilEvent(lifecycleSubject, event)
-    }
-
-    @CheckResult
-    override fun <T> bindToLifecycle(): LifecycleTransformer<T> {
-        return RxLifecycleAndroid.bindFragment(lifecycleSubject)
-    }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycleSubject.onNext(FragmentEvent.CREATE)
-    }
 
-
-    override fun onStart() {
-        super.onStart()
-        lifecycleSubject.onNext(FragmentEvent.START)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        lifecycleSubject.onNext(FragmentEvent.RESUME)
-    }
-
-    override fun onPause() {
-        lifecycleSubject.onNext(FragmentEvent.PAUSE)
-        super.onPause()
-    }
-
-    override fun onStop() {
-        lifecycleSubject.onNext(FragmentEvent.STOP)
-        super.onStop()
-    }
-
-    override fun onDestroyView() {
-        lifecycleSubject.onNext(FragmentEvent.DESTROY_VIEW)
-        super.onDestroyView()
-        mRootView = null
-        mContext = null
-        Log.i(TAG, this.javaClass.name + "onDestroyView")
-
-    }
-
-    override fun onDestroy() {
-        lifecycleSubject.onNext(FragmentEvent.DESTROY)
-        super.onDestroy()
-    }
-
-    override fun onDetach() {
-        lifecycleSubject.onNext(FragmentEvent.DETACH)
-        super.onDetach()
-    }
 
     companion object {
 
-        private val handler = Handler()
+        internal val handler = Handler()
 
         private val TAG = BaseFragment::class.java.simpleName
     }
-    /**------------------------             Rxlife  end               ------------------------ */
 
 }

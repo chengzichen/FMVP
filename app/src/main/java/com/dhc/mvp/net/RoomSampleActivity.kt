@@ -1,60 +1,45 @@
 package com.dhc.mvp.net
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 
-import com.dhc.library.base.BaseApplication
-import com.dhc.library.base.XDaggerActivity
-import com.dhc.library.utils.AppContext
+import com.dhc.library.base.activity.BaseVmDbActivity
+import com.dhc.library.base.viewmodel.parseState
 import com.dhc.mvp.R
-import com.dhc.mvp.dao.AppDatabase
-import com.dhc.mvp.di.DiHelper
-import com.dhc.mvp.modle.bean.GankItemBean
-import com.dhc.mvp.presenter.NetTestPresenter
-import com.dhc.mvp.presenter.RoomTestPresenter
-import com.dhc.mvp.presenter.RxCacheTestPresenter
-import com.dhc.mvp.presenter.contract.INetTestContract
-import org.w3c.dom.Text
-
-import io.reactivex.functions.Consumer
+import com.dhc.mvp.databinding.ActivityRxcacheSampleBinding
+import com.dhc.mvp.state.HomeViewModel
+import com.dhc.mvp.viewmodel.RequestDbViewModel
+import kotlinx.android.synthetic.main.activity_rxcache_sample.*
+import kotlinx.android.synthetic.main.activity_rxcache_sample.tv_content
+import kotlinx.android.synthetic.main.activity_rxcache_sample.tv_title
 
 /**
  * @creator：denghc(desoce)
  * @updateTime：2018/8/23 下午2:55
  * @description：使用 Room示例
  */
-class RoomSampleActivity : XDaggerActivity<RoomTestPresenter, INetTestContract.IView>(), INetTestContract.IView {
+class RoomSampleActivity : BaseVmDbActivity<HomeViewModel, ActivityRxcacheSampleBinding>() {
 
-    private var title: TextView? = null
-    private var content: TextView? = null
+    private val viewModel: RequestDbViewModel by viewModels()
 
-    override val layoutId: Int
-        get() = R.layout.activity_rxcache_sample
 
-    override fun initEventAndData(savedInstanceState: Bundle?) {
-        title = `$`(R.id.tv_title)
-        title!!.text = "Url : http://gank.io/api/random/data/福利/1"
-        content = `$`(R.id.tv_content)
-        mPresenter!!.getRandomGirl()//调用方法请求接口
+    override fun createObserver() {
+        viewModel.run {
+            randomGirlData.observe(this@RoomSampleActivity, Observer {
+                parseState(it, onSuccess = { data ->
+                    tv_content!!.text = getString(R.string.data_f, data!![0].toString())
+                    viewModel.loadAllByIds(arrayOf(data[0]._id))
+                }, onError = { })
+            })
+            dbRandomGirlData.observe(this@RoomSampleActivity, Observer {
+                parseState(it, { data -> tv_database!!.text = "数据库数据: " + data[0].toString() })
+            })
+        }
     }
 
-    override fun initInject(savedInstanceState: Bundle?) {
-        DiHelper.getActivityComponent(activityModule).inject(this)
-    }
-
-
-    override fun failure(code: String, msg: String?) {
-
-
-    }
-
-
-
-    override fun success(data: List<GankItemBean>?) {
-        content!!.text = getString(R.string.data_f, data!![0].toString())
-        mPresenter!!.loadAllByIds(arrayOf(data[0]._id))
-                .subscribe { gankItemBeans -> (`$`<View>(R.id.tv_database) as TextView).text = "数据库数据: " + gankItemBeans[0].toString() }
+    override fun initView(savedInstanceState: Bundle?) {
+        tv_title!!.text = "Url : http://gank.io/api/random/data/福利/1"
+        viewModel!!.getRandomGirl()//调用方法请求接口
     }
 }

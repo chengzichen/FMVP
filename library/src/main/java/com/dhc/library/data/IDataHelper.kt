@@ -153,5 +153,5 @@ interface IDataHelper {
 
     fun <S> createApi(serviceClass: Class<S>, client: OkHttpClient): S
 
-    fun initConfig(netConfig: IDataHelper.NetConfig)
+    fun initConfig(netConfig: IDataHelper.NetConfig?)
 }

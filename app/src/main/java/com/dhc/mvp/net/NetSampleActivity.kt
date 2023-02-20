@@ -1,63 +1,55 @@
 package com.dhc.mvp.net
 
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 
-import com.dhc.library.base.XDaggerActivity
-import com.dhc.library.framework.IBaseView
+import com.dhc.library.base.activity.BaseVmDbActivity
+import com.dhc.library.base.viewmodel.parseState
 import com.dhc.mvp.R
-import com.dhc.mvp.di.DiHelper
-import com.dhc.mvp.modle.bean.GankItemBean
-import com.dhc.mvp.presenter.NetTestPresenter
-import com.dhc.mvp.presenter.contract.INetTestContract
+import com.dhc.mvp.databinding.ActivityNetSampleBinding
+import com.dhc.mvp.state.HomeViewModel
+import com.dhc.mvp.viewmodel.RequestProjectViewModel
+import kotlinx.android.synthetic.main.activity_net_sample.*
 
 /**
  * @creator：denghc(desoce)
  * @updateTime：2018/8/14 下午2:55
  * @description：TODO 请描述该类职责
  */
-class NetSampleActivity : XDaggerActivity<NetTestPresenter, INetTestContract.IView>(), INetTestContract.IView {
+class NetSampleActivity : BaseVmDbActivity<HomeViewModel, ActivityNetSampleBinding>() {
 
 
     private var isFrist: Boolean = false
-    private var title: TextView? = null
-    private var content: TextView? = null
+    private val viewModel: RequestProjectViewModel by viewModels()
 
-    override val layoutId: Int
-        get() = R.layout.activity_net_sample
 
-    override fun initEventAndData(savedInstanceState: Bundle?) {
+    override fun createObserver() {
+        viewModel.run {
+            randomGirlData.observe(this@NetSampleActivity, Observer {
+                parseState(it,
+                    onSuccess = { data ->
+                        tv_content!!.text = getString(R.string.data_f, data!![0].toString())
+                    },
+                    onError = {
 
-        initView()
-
-        mPresenter!!.getRandomGirl()//调用方法请求接口
+                    })
+            })
+        }
     }
 
-    private fun initView() {
-        `$`<View>(R.id.bt_fragment).setOnClickListener {
+    override fun initView(savedInstanceState: Bundle?) {
+        bt_fragment.setOnClickListener {
             if (!isFrist) {
                 loadRootFragment(R.id.fl_content, NetSampleFragment(), true, true)
                 isFrist = true
             }
         }
-        title = `$`(R.id.tv_title)
-        title!!.text = "Url : http://gank.io/api/random/data/福利/1"
-        content = `$`(R.id.tv_content)
+        tv_title!!.text = "Url : http://gank.io/api/random/data/福利/1"
+        viewModel!!.getRandomGirl()//调用方法请求接口
     }
 
-    override fun initInject(savedInstanceState: Bundle?) {
-        DiHelper.getActivityComponent(activityModule).inject(this)
-    }
-
-    override fun onBackPressedSupport() {
-        super.onBackPressedSupport()
-    }
-    override fun success(data: List<GankItemBean>?) {
-        content!!.text = getString(R.string.data_f, data!![0].toString())
-    }
-
-    override fun failure(code: String, msg: String?) {
-
-    }
 }
+
+
+

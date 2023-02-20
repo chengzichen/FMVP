@@ -10,14 +10,6 @@ import androidx.annotation.CheckResult
 
 import com.dhc.library.R
 import com.dhc.library.framework.ISupportBaseActivity
-import com.trello.rxlifecycle3.LifecycleProvider
-import com.trello.rxlifecycle3.LifecycleTransformer
-import com.trello.rxlifecycle3.RxLifecycle
-import com.trello.rxlifecycle3.android.ActivityEvent
-import com.trello.rxlifecycle3.android.RxLifecycleAndroid
-
-import io.reactivex.Observable
-import io.reactivex.subjects.BehaviorSubject
 import me.yokeyword.fragmentation.SupportActivity
 
 /**
@@ -25,23 +17,23 @@ import me.yokeyword.fragmentation.SupportActivity
  * @updateTime:2018/7/30 11:59
  * @description: BaseActivity by no mvp
  */
-abstract class BaseActivity : SupportActivity(), LifecycleProvider<ActivityEvent>, ISupportBaseActivity {
+abstract class BaseActivity : SupportActivity(), ISupportBaseActivity {
 
-    /**
-     * Rewrite RxLife to control the life cycle
-     */
-    private val lifecycleSubject = BehaviorSubject.create<ActivityEvent>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycleSubject.onNext(ActivityEvent.CREATE)
         beforeInit(savedInstanceState)
-        if (layoutId > 0) {
-            setContentView(layoutId)
-        }
+        onBaseSetContentView()
         Log.i(TAG, "activity: " + javaClass.simpleName + " onCreate()")
         initEventAndData(savedInstanceState)
     }
+
+   open fun onBaseSetContentView(){
+        if (layoutId > 0) {
+            setContentView(layoutId)
+        }
+    }
+
 
     /**
      * replace  findViewById
@@ -56,7 +48,6 @@ abstract class BaseActivity : SupportActivity(), LifecycleProvider<ActivityEvent
 
 
     override fun onDestroy() {
-        lifecycleSubject.onNext(ActivityEvent.DESTROY)
         super.onDestroy()
         Log.i(TAG, "activity: " + javaClass.simpleName + " onDestroy()")
     }
@@ -101,52 +92,11 @@ abstract class BaseActivity : SupportActivity(), LifecycleProvider<ActivityEvent
 
     }
 
-    /**------------------------             Rxlife start               ------------------------ */
 
-    @CheckResult
-    override fun lifecycle(): Observable<ActivityEvent> {
-        return lifecycleSubject.hide()
-    }
-
-    @CheckResult
-    override fun <T> bindUntilEvent(event: ActivityEvent): LifecycleTransformer<T> {
-        return RxLifecycle.bindUntilEvent(lifecycleSubject, event)
-    }
-
-    @CheckResult
-    override fun <T> bindToLifecycle(): LifecycleTransformer<T> {
-        return RxLifecycleAndroid.bindActivity(lifecycleSubject)
-    }
-
-
-    @CallSuper
-    override fun onStart() {
-        super.onStart()
-        lifecycleSubject.onNext(ActivityEvent.START)
-    }
-
-    @CallSuper
-    override fun onResume() {
-        super.onResume()
-        lifecycleSubject.onNext(ActivityEvent.RESUME)
-    }
-
-    @CallSuper
-    override fun onPause() {
-        lifecycleSubject.onNext(ActivityEvent.PAUSE)
-        super.onPause()
-    }
-
-    @CallSuper
-    override fun onStop() {
-        lifecycleSubject.onNext(ActivityEvent.STOP)
-        super.onStop()
-    }
 
     companion object {
 
         private val TAG = BaseActivity::class.java.simpleName
     }
 
-    /**------------------------             Rxlife    end          ------------------------ */
 }
