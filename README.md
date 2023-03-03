@@ -9,10 +9,6 @@
 
 # 前言
 
-
-     欢迎使用Flyabbit全家桶
-
-
   🔜 FMVP: 快速开发的 MVP 框架,开箱即用
 
 ### 最新版本
@@ -594,21 +590,8 @@ ApiResponse
   - [[从零开始系列]AndroidApp研发之路-<楼外篇>Retrofit的刨根问底篇](http://blog.csdn.net/chengzichen_/article/details/77840996)
   
   更新中....
-  
-## 关于个人
+
      
    
-  
-  Github:[https://github.com/chengzichen](https://github.com/chengzichen)
-  
-  CSDN : [http://blog.csdn.net/chengzichen_](http://blog.csdn.net/chengzichen_)
 
-
-<div  align="center"> 
-本人一直都致力于组件化和插件化的研究如果大家有更好的想法可以联系我一起成长
-</div>
-
-<div  align="center">   
- <img src="https://i.imgur.com/J1LpBum.jpg" width = "200" height = "300" alt="图片名称" align=center />
-</div>
 
