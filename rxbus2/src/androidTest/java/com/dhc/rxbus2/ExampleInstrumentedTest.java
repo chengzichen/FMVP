@@ -1,6 +1,8 @@
-package com.dhc.mvp;
+package com.dhc.rxbus2;
 
 import android.content.Context;
+import androidx.test.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,10 +14,13 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+@RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
-    public void useAppContext() {
+    public void useAppContext() throws Exception {
         // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getTargetContext();
 
+        assertEquals("com.dhc.rxbus2.test", appContext.getPackageName());
     }
 }

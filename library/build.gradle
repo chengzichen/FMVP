@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 
 
@@ -129,7 +128,6 @@ dependencies {
     //di
     api rootProject.ext.dependencies["dagger"]
     api rootProject.ext.dependencies["arouter-api"]
-    api rootProject.ext.dependencies["javax.annotation"]
     //dagger2的apt注解
     kapt rootProject.ext.dependencies["dagger-compiler"]
 
