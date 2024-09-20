@@ -26,9 +26,9 @@ ext {
             //network
             VRetrofitSdk           : "2.5.0",
             VOkhttp                : "3.12.0",
-            VOkIntegration         : "1.4.0@aar",
+            VOkIntegration         : "4.11.0",
             VGson                  : "2.8.5",
-            VGlide                 : "4.9.0",
+            VGlide                 : "4.11.0",
             Vjackson               : "2.9.1",
             VProtobufLite          : "3.0.1",
 

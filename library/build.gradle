@@ -109,7 +109,7 @@ dependencies {
 
     api rootProject.ext.dependencies["okhttp3"]
     api rootProject.ext.dependencies["okhttp3-logging-interceptor"]
-    api rootProject.ext.dependencies["glide-okhttp3-integration"]
+//    api rootProject.ext.dependencies["glide-okhttp3-integration"]
     //other
     api (rootProject.ext.dependencies["rxpermissions"] ,{
         exclude group: 'com.android.support', module: 'support-annotations'
