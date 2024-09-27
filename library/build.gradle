@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
+apply plugin: 'kotlin-android-extensions'
 
 kapt {
     arguments {
@@ -46,8 +46,8 @@ android {
         abortOnError false
     }
 
-    buildFeatures {
-        dataBinding = true
+    dataBinding {
+        enabled = true
     }
     aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
@@ -138,7 +138,7 @@ dependencies {
     api(rootProject.ext.dependencies["room-rxjava2"], {
         exclude module: 'rxjava'
     })
-    api rootProject.ext.dependencies["room-testing"]
+    testImplementation rootProject.ext.dependencies["room-testing"]
 
 }
 
