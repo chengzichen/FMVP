@@ -52,7 +52,7 @@ ext {
             VDagger                : "2.45",
             VButterknife           : "8.4.0",
             VAroutercompiler       : "1.2.2",
-            VArouterapi            : "1.5.0",
+            VArouterapi            : "1.5.2",
             //ui
             VBaseAdapterHelper     : "2.9.45-androidx",
             VConstraintLayout      : "1.1.3",

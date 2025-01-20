@@ -14,8 +14,6 @@ import android.widget.TextView
 import com.dhc.library.base.BaseActivity
 import com.dhc.mvp.net.NetSampleActivity
 import com.dhc.mvp.net.RoomSampleActivity
-import com.dhc.mvp.net.RxCacheSampleActivity
-import com.dhc.mvp.net.RxJavaSampleActivity
 
 /**
  * @creator： denghc(desoce)
@@ -79,8 +77,6 @@ class MainActivity : BaseActivity() {
         when (pos) {
             0 -> startActivity(Intent(this, NetSampleActivity::class.java))
             1 -> startActivity(Intent(this, RoomSampleActivity::class.java))
-            2 -> startActivity(Intent(this, RxCacheSampleActivity::class.java))
-            3 -> startActivity(Intent(this, RxJavaSampleActivity::class.java))
         }
 
     }

@@ -5,19 +5,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 
-import androidx.annotation.CallSuper
-import androidx.annotation.CheckResult
+import androidx.appcompat.app.AppCompatActivity
 
 import com.dhc.library.R
 import com.dhc.library.framework.ISupportBaseActivity
-import me.yokeyword.fragmentation.SupportActivity
 
 /**
  * @creator:denghc(desoce)
  * @updateTime:2018/7/30 11:59
  * @description: BaseActivity by no mvp
  */
-abstract class BaseActivity : SupportActivity(), ISupportBaseActivity {
+abstract class BaseActivity : AppCompatActivity(), ISupportBaseActivity {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,13 +77,6 @@ abstract class BaseActivity : SupportActivity(), ISupportBaseActivity {
         }
     }
 
-    /**
-     * Please try to override this method to avoid copying onBackPress(),
-     * To ensure that the onBackPressedSupport() rewind event in the SupportFragment is executed normally
-     */
-    override fun onBackPressedSupport() {
-        super.onBackPressedSupport()
-    }
 
 
    open fun beforeInit(savedInstanceState: Bundle?) {

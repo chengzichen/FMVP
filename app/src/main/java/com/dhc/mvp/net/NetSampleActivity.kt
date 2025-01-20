@@ -41,7 +41,7 @@ class NetSampleActivity : BaseVmDbActivity<HomeViewModel, ActivityNetSampleBindi
     override fun initView(savedInstanceState: Bundle?) {
         bt_fragment.setOnClickListener {
             if (!isFrist) {
-                loadRootFragment(R.id.fl_content, NetSampleFragment(), true, true)
+//                loadRootFragment(R.id.fl_content, NetSampleFragment(), true, true)
                 isFrist = true
             }
         }

@@ -14,14 +14,9 @@ import com.dhc.library.base.viewmodel.BaseViewModel
 import com.dhc.library.base.viewmodel.parseState
 import com.dhc.mvp.R
 import com.dhc.mvp.databinding.FragmentNetSampleBinding
-import com.dhc.mvp.di.DiHelper
-import com.dhc.mvp.modle.bean.GankItemBean
-import com.dhc.mvp.presenter.NetTestPresenter
 import com.dhc.mvp.viewmodel.RequestProjectViewModel
 import kotlinx.android.synthetic.main.activity_net_sample.*
 
-import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator
-import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 
 /**
@@ -38,10 +33,6 @@ class NetSampleFragment : BaseVmDbFragment<BaseViewModel, FragmentNetSampleBindi
         super.onCreate(savedInstanceState)
     }
 
-
-    override fun onCreateFragmentAnimator(): FragmentAnimator {
-        return DefaultVerticalAnimator()
-    }
 
     override fun createObserver() {
         viewModel.run {

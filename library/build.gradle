@@ -75,9 +75,9 @@ dependencies {
     //test
     testImplementation rootProject.ext.dependencies["junit"]
 
-    api (rootProject.ext.dependencies["fragmentation"], {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+//    api (rootProject.ext.dependencies["fragmentation"], {
+//        exclude group: 'com.android.support', module: 'support-annotations'
+//    })
 
     //kotlin
     api"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -149,7 +149,7 @@ dependencies {
     //di
 //    api rootProject.ext.dependencies["dagger"]
     api rootProject.ext.dependencies["arouter-api"]
-    api rootProject.ext.dependencies["javax.annotation"]
+//    api rootProject.ext.dependencies["javax.annotation"]
 //    //dagger2的apt注解
 //    kapt rootProject.ext.dependencies["dagger-compiler"]
 

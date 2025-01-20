@@ -9,12 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
 
 import com.dhc.library.framework.ISupportBaseFragment
 
-import me.yokeyword.fragmentation.SupportFragment
-import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
-import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 
 /**
@@ -22,27 +20,12 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
  * @updateTime:2018/7/30 12:02
  * @description: BaseFragment by no mvp
  */
-abstract class BaseFragment : SupportFragment(),  ISupportBaseFragment {
+abstract class BaseFragment : Fragment(),  ISupportBaseFragment {
 
     protected var mRootView: View? = null
 
     protected var mContext: Context? = null
 
-    /**
-     * Check if the soft keyboard pops up
-     */
-    val isShowKeyboard: Boolean
-        get() {
-            if (_mActivity == null || view == null)
-                return false
-            val imm = _mActivity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            if (imm.hideSoftInputFromWindow(requireView().windowToken, 0)) {
-                imm.showSoftInput(view, 0)
-                return true
-            } else {
-                return false
-            }
-        }
 
 
     /**
@@ -95,14 +78,6 @@ abstract class BaseFragment : SupportFragment(),  ISupportBaseFragment {
         return mRootView
     }
 
-    /**
-     * The default is landscape animation
-     *
-     * @return
-     */
-    override fun onCreateFragmentAnimator(): FragmentAnimator {
-        return DefaultHorizontalAnimator()
-    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -113,14 +88,6 @@ abstract class BaseFragment : SupportFragment(),  ISupportBaseFragment {
         Log.i(TAG, this.javaClass.name + "onViewCreated")
     }
 
-
-    override fun onLazyInitView(savedInstanceState: Bundle?) {
-        super.onLazyInitView(savedInstanceState)
-        if (useLazy()) {
-            initEventAndData(savedInstanceState)
-            Log.i(TAG, this.javaClass.name + "onLazyInitView")
-        }
-    }
 
     /**
      * useLazy
@@ -178,20 +145,6 @@ abstract class BaseFragment : SupportFragment(),  ISupportBaseFragment {
         super.onHiddenChanged(hidden)
     }
 
-
-    override fun onBackPressedSupport(): Boolean {
-        return super.onBackPressedSupport()
-    }
-
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-        // todo,When the Fragment is visible to the use
-    }
-
-    override fun onSupportInvisible() {
-        super.onSupportInvisible()
-        // todo,When the Fragment is invisible to the use
-    }
 
 
 
